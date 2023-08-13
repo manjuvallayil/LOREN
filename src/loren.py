@@ -33,6 +33,10 @@ def load_config(config):
     if isinstance(config, str):
         with open(config) as f:
             config = json.load(f)
+    # Check and remove the label_smoothing field if it exists
+    if 'tagger' in config and 'label_smoothing' in config['tagger']:
+        del config['tagger']['label_smoothing']
+        
     cfg = cjj.AttrDict(config)
     return cfg
 
